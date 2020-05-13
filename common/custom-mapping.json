@@ -1,5 +1,27 @@
 {
   "strict": {
-    "text-font-family": "RobotoCondensed-Regular"
+    "text-font-family": "RobotoCondensed-Regular",
+    "text-font-family-light": "RobotoCondensed-Light",
+    "text-font-family-bold": "RobotoCondensed-Bold",
+
+    "text-heading-1-font-size": 22,
+    "text-heading-1-font-weight": "600",
+    "text-heading-1-font-family": "RobotoCondensed-Bold",
+
+    "text-subtitle-1-font-size": 15,
+    "text-subtitle-1-font-weight": "600",
+    "text-subtitle-1-font-family": "RobotoCondensed-Regular",
+
+    "text-paragraph-1-font-size": 15,
+    "text-paragraph-1-font-weight": "400",
+    "text-paragraph-1-font-family": "RobotoCondensed-Regular",
+
+    "text-caption-1-font-size": 16,
+    "text-caption-1-font-weight": "300",
+    "text-caption-1-font-family": "RobotoCondensed-Light",
+
+    "text-label-font-size": 12,
+    "text-label-font-weight": "800",
+    "text-label-font-family": "RobotoCondensed-Light"
   }
 }
