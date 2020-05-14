@@ -23,7 +23,7 @@ const WorkStackNavigator = createStackNavigator();
 
 const WorkNavigator = () => {
   return (
-    <WorkStackNavigator.Navigator>
+    <WorkStackNavigator.Navigator headerMode="none">
       <WorkStackNavigator.Screen name="Work" component={WorkScreen} />
     </WorkStackNavigator.Navigator>
   );
@@ -43,7 +43,7 @@ const MapStackNavigator = createStackNavigator();
 
 const MapNavigator = () => {
   return (
-    <MapStackNavigator.Navigator>
+    <MapStackNavigator.Navigator headerMode="none">
       <MapStackNavigator.Screen name="Map" component={MapScreen} />
     </MapStackNavigator.Navigator>
   );

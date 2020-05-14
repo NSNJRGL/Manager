@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   captionContainer: {
-    width: '50%',
+    width: '100%',
   },
   captionStyle: {
     textAlign: 'center',
