@@ -1,12 +1,19 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
+import {Layout} from '@ui-kitten/components';
 
 const WorkScreen = () => {
   return (
-    <View>
+    <Layout style={styles.container}>
       <Text>WorkScreen</Text>
-    </View>
+    </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default WorkScreen;

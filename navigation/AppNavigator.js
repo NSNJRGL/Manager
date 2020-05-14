@@ -1,4 +1,5 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -94,17 +95,24 @@ const BottomTabNavigator = () => {
     <BottomTab.Navigator
       tabBarOptions={{
         activeTintColor: UI.primary,
-        inactiveTintColor: UI.gray,
+        inactiveTintColor: UI.secondary,
+        style: {...styles.tabBar},
+        keyboardHidesTabBar: true,
       }}
       initialRouteName="Work">
       <BottomTab.Screen
         name="Work"
         component={WorkNavigator}
         options={{
+          tabBarLabel: 'Ажил',
           tabBarIcon: (tabInfo) => (
             <Icon
-              name={'briefcase-outline'}
-              style={{height: UI.spacing, tintColor: tabInfo.color}}
+              name="briefcase-outline"
+              style={{
+                height: UI.height,
+                width: UI.width,
+                tintColor: tabInfo.color,
+              }}
             />
           ),
         }}
@@ -113,10 +121,15 @@ const BottomTabNavigator = () => {
         name="Map"
         component={MapNavigator}
         options={{
+          tabBarLabel: 'Байршил',
           tabBarIcon: (tabInfo) => (
             <Icon
               name="navigation-outline"
-              style={{height: UI.spacing, tintColor: tabInfo.color}}
+              style={{
+                height: UI.height,
+                width: UI.width,
+                tintColor: tabInfo.color,
+              }}
             />
           ),
         }}
@@ -125,10 +138,15 @@ const BottomTabNavigator = () => {
         name="Research"
         component={ResearchNavigator}
         options={{
+          tabBarLabel: 'Судалгаа',
           tabBarIcon: (tabInfo) => (
             <Icon
               name="plus-circle-outline"
-              style={{height: UI.spacing, tintColor: tabInfo.color}}
+              style={{
+                height: UI.height,
+                width: UI.width,
+                tintColor: tabInfo.color,
+              }}
             />
           ),
         }}
@@ -137,10 +155,15 @@ const BottomTabNavigator = () => {
         name="Chat"
         component={ChatNavigator}
         options={{
+          tabBarLabel: 'Mессеж',
           tabBarIcon: (tabInfo) => (
             <Icon
               name="message-square-outline"
-              style={{height: UI.spacing, tintColor: tabInfo.color}}
+              style={{
+                height: UI.height,
+                width: UI.width,
+                tintColor: tabInfo.color,
+              }}
             />
           ),
         }}
@@ -149,10 +172,15 @@ const BottomTabNavigator = () => {
         name="Other"
         component={OtherNavigator}
         options={{
+          tabBarLabel: 'Бусад',
           tabBarIcon: (tabInfo) => (
             <Icon
               name="archive-outline"
-              style={{height: UI.spacing, tintColor: tabInfo.color}}
+              style={{
+                height: UI.height,
+                width: UI.width,
+                tintColor: tabInfo.color,
+              }}
             />
           ),
         }}
@@ -173,5 +201,11 @@ const AppNavigator = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  tabBar: {
+    elevation: 0,
+  },
+});
 
 export default AppNavigator;
