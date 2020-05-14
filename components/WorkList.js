@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {Icon, List, ListItem, Text, Avatar} from '@ui-kitten/components';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const data = new Array(100).fill({
+const data = new Array(10).fill({
   title: 'Сонгуулийн хуудас тараах 50ш',
   description: 'энд дарж ажлын дэлгэрэнгүйтэй танилцана уу!',
 });
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   listContainer: {
-    maxHeight: '100%',
+    maxHeight: '91.5%',
     backgroundColor: '#FFFFFF',
   },
   list: {
