@@ -11,6 +11,10 @@ const LoginScreen = (props) => {
     SplashScreen.hide();
   }, []);
 
+  const onLoginPress = () => {
+    props.navigation.navigate('App');
+  };
+
   return (
     <SafeAreaView style={styles.default}>
       <Layout style={styles.container}>
@@ -22,10 +26,10 @@ const LoginScreen = (props) => {
         </View>
         <View>
           <Text style={styles.textStyle} category="h1">
-            Нууц үгээ оруулна уу!
+            Нэвтрэх
           </Text>
         </View>
-        <View>
+        <View style={styles.inputContainer}>
           <PasswordInput />
         </View>
         <View style={styles.captionContainer}>
@@ -34,7 +38,7 @@ const LoginScreen = (props) => {
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button>ҮРГЭЛЖЛҮҮЛЭХ</Button>
+          <Button onPress={onLoginPress}>ҮРГЭЛЖЛҮҮЛЭХ</Button>
         </View>
       </Layout>
     </SafeAreaView>
@@ -51,6 +55,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
+  },
+  inputContainer: {
+    width: '80%',
   },
   buttonContainer: {
     width: '80%',
