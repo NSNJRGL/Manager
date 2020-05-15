@@ -13,6 +13,7 @@ import ChatScreen from '../screens/ChatScreen';
 import MapScreen from '../screens/MapScreen';
 import OtherScreen from '../screens/OtherScreen';
 import ResearchScreen from '../screens/ResearchScreen';
+import ChatDetailScreen from '../screens/ChatDetailScreen';
 
 const noHeaderOptions = {
   headerMode: 'none',
@@ -33,8 +34,15 @@ const ChatStackNavigator = createStackNavigator();
 
 const ChatNavigator = () => {
   return (
-    <ChatStackNavigator.Navigator>
+    <ChatStackNavigator.Navigator headerMode="none">
       <ChatStackNavigator.Screen name="Chat" component={ChatScreen} />
+      <ChatStackNavigator.Screen
+        name="ChatDetail"
+        component={ChatDetailScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
     </ChatStackNavigator.Navigator>
   );
 };
@@ -53,7 +61,7 @@ const OtherStackNavigator = createStackNavigator();
 
 const OtherNavigator = () => {
   return (
-    <OtherStackNavigator.Navigator>
+    <OtherStackNavigator.Navigator headerMode="none">
       <OtherStackNavigator.Screen name="Other" component={OtherScreen} />
     </OtherStackNavigator.Navigator>
   );
