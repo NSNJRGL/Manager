@@ -8,7 +8,7 @@ const data = new Array(10).fill({
   description: 'энд дарж ажлын дэлгэрэнгүйтэй танилцана уу!',
 });
 
-const WorkList = () => {
+const WorkList = ({maxHeight, navigation, detailType}) => {
   const renderItemAccessory = (style) => (
     <Icon
       style={styles.rightIcon}
@@ -27,7 +27,8 @@ const WorkList = () => {
   const renderItem = ({item, index}) => {
     return (
       <View style={styles.list}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(detailType, {title: item.title})}>
           <ListItem
             title={`${item.title}`}
             description={renderDescription(item)}
@@ -51,7 +52,7 @@ const WorkList = () => {
   return (
     <View style={styles.container}>
       <List
-        style={styles.listContainer}
+        style={{...styles.listContainer, maxHeight}}
         data={data}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
@@ -66,7 +67,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   listContainer: {
-    maxHeight: '91.5%',
     backgroundColor: '#FFFFFF',
   },
   list: {

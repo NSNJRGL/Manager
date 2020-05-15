@@ -14,6 +14,9 @@ import MapScreen from '../screens/MapScreen';
 import OtherScreen from '../screens/OtherScreen';
 import ResearchScreen from '../screens/ResearchScreen';
 import ChatDetailScreen from '../screens/ChatDetailScreen';
+import BannerScreen from '../screens/BannerScreen';
+import BannerDetailScreen from '../screens/BannerDetailScreen';
+import WorkDetailScreen from '../screens/WorkDetailScreen';
 
 const noHeaderOptions = {
   headerMode: 'none',
@@ -26,6 +29,13 @@ const WorkNavigator = () => {
   return (
     <WorkStackNavigator.Navigator headerMode="none">
       <WorkStackNavigator.Screen name="Work" component={WorkScreen} />
+      <WorkStackNavigator.Screen
+        name="WorkDetail"
+        component={WorkDetailScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
     </WorkStackNavigator.Navigator>
   );
 };
@@ -63,6 +73,20 @@ const OtherNavigator = () => {
   return (
     <OtherStackNavigator.Navigator headerMode="none">
       <OtherStackNavigator.Screen name="Other" component={OtherScreen} />
+      <OtherStackNavigator.Screen
+        name="Banner"
+        component={BannerScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <OtherStackNavigator.Screen
+        name="BannerDetail"
+        component={BannerDetailScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
     </OtherStackNavigator.Navigator>
   );
 };

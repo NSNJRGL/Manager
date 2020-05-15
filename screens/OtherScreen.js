@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {List, ListItem, Button, Icon} from '@ui-kitten/components';
+import {Text, StyleSheet} from 'react-native';
+import {List, ListItem, Icon} from '@ui-kitten/components';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 
@@ -13,7 +13,7 @@ const data = [
   },
 ];
 
-const OtherScreen = () => {
+const OtherScreen = ({navigation}) => {
   const renderItemAccessory = (props) => (
     <Icon {...props} name="chevron-right-outline" fill="#222C44" />
   );
@@ -34,6 +34,7 @@ const OtherScreen = () => {
       accessoryLeft={renderItemIcon}
       accessoryRight={renderItemAccessory}
       style={styles.listItem}
+      onPress={() => navigation.navigate('Banner')}
     />
   );
 

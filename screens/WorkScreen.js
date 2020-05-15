@@ -6,7 +6,7 @@ import WorkHeader from '../components/WorkHeader';
 import TopCalendar from '../components/TopCalendar';
 import WorkList from '../components/WorkList';
 
-const WorkScreen = () => {
+const WorkScreen = ({navigation}) => {
   return (
     <Layout style={styles.container}>
       <WorkHeader />
@@ -16,7 +16,11 @@ const WorkScreen = () => {
         <Text category="h6" style={styles.title}>
           Өнөөдрийн гүйцэтгэх даалгаврууд
         </Text>
-        <WorkList />
+        <WorkList
+          maxHeight="91.5%"
+          navigation={navigation}
+          detailType="WorkDetail"
+        />
       </Layout>
     </Layout>
   );

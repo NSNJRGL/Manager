@@ -6,10 +6,12 @@ import Modal from 'react-native-modal';
 import CustomTopNavigation from '../components/CustomTopNavigation';
 import CustomInput from '../components/CustomInput';
 import CustomSelect from '../components/CustomSelect';
+import SuccessModal from '../components/SuccessModal';
 
 const ResearchScreen = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollOffset, setScrollOffset] = useState(null);
+  const [formSubmitted, setformSubmitted] = useState(false);
   const scrollViewRef = createRef();
 
   useEffect(() => {
@@ -21,8 +23,9 @@ const ResearchScreen = ({navigation}) => {
   }, [navigation]);
 
   const onHideModal = () => {
+    navigation.navigate('Work');
     setIsVisible(false);
-    navigation.goBack();
+    setformSubmitted(true);
   };
 
   const handleScrollTo = (p) => {
@@ -72,6 +75,19 @@ const ResearchScreen = ({navigation}) => {
           <Button onPress={onHideModal}>СУДАЛГАА ИЛГЭЭХ</Button>
         </View>
       </Modal>
+
+      <View>
+        {formSubmitted && (
+          <SuccessModal
+            visible={formSubmitted}
+            header="Судалгаа амжилттай илгээгдлээ"
+            button="Хаах"
+            handlemodal={() => {
+              setformSubmitted(false);
+            }}
+          />
+        )}
+      </View>
     </View>
   );
 };
