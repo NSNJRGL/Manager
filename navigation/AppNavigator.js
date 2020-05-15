@@ -63,7 +63,7 @@ const ResearchStackNavigator = createStackNavigator();
 
 const ResearchNavigator = () => {
   return (
-    <ResearchStackNavigator.Navigator>
+    <ResearchStackNavigator.Navigator mode="modal" headerMode="none">
       <ResearchStackNavigator.Screen
         name="Research"
         component={ResearchScreen}
@@ -149,7 +149,15 @@ const BottomTabNavigator = () => {
               }}
             />
           ),
+          tabBarVisible: false,
         }}
+        listeners={({navigation, route}) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+
+            navigation.navigate('Research');
+          },
+        })}
       />
       <BottomTab.Screen
         name="Chat"

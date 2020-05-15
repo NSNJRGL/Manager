@@ -1,6 +1,13 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {TopNavigation, Text} from '@ui-kitten/components';
+import {
+  TopNavigation,
+  Text,
+  Icon,
+  TopNavigationAction,
+} from '@ui-kitten/components';
+
+const BackIcon = () => <Icon fill="#FA434A" name="close-circle-outline" />;
 
 const CustomTopNavigation = (props) => {
   const renderTitle = () => (
@@ -9,7 +16,15 @@ const CustomTopNavigation = (props) => {
     </Text>
   );
 
-  return <TopNavigation alignment="center" title={renderTitle} />;
+  const renderBackAction = () => <TopNavigationAction icon={BackIcon} />;
+
+  return (
+    <TopNavigation
+      alignment="center"
+      // accessoryLeft={renderBackAction}
+      title={renderTitle}
+    />
+  );
 };
 
 const styles = StyleSheet.create({

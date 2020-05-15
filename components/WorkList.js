@@ -54,7 +54,7 @@ const WorkList = () => {
         style={styles.listContainer}
         data={data}
         renderItem={renderItem}
-        scrollEnabled={true}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
