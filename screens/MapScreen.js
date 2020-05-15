@@ -1,12 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Layout} from '@ui-kitten/components';
+import {Layout, Avatar} from '@ui-kitten/components';
 import MapView from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 
 const MapScreen = () => {
-  useEffect(() => {}, []);
+  const [currentLat, setCurrentLat] = useState(0);
+  const [currentLong, setcurrentLong] = useState(0);
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition((info) => {
+      setCurrentLat(info.coords.latitude);
+      setcurrentLong(info.coords.longitude);
+    });
+  }, []);
 
   return (
     <Layout style={styles.mainContainer}>
@@ -16,21 +25,25 @@ const MapScreen = () => {
         <MapView
           style={styles.map}
           region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: currentLat,
+            longitude: currentLong,
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
-          }}
-          showsMyLocationButton={true}
-          showsUserLocation={true}>
-          <MapView.Marker
-            coordinate={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-            }}
-            title={'Your Location'}
-            draggable
-          />
+          }}>
+          {currentLat > 0 && currentLong > 0 && (
+            <MapView.Marker
+              coordinate={{
+                latitude: currentLat,
+                longitude: currentLong,
+              }}
+              title={'Your Location'}
+              draggable>
+              <Avatar
+                size="small"
+                source={require('../assets/images/user-profile.jpg')}
+              />
+            </MapView.Marker>
+          )}
         </MapView>
       </View>
     </Layout>
