@@ -10,12 +10,9 @@ const data = new Array(10).fill({
 
 const WorkList = ({maxHeight, navigation, detailType}) => {
   const renderItemAccessory = (style) => (
-    <Icon
-      style={styles.rightIcon}
-      {...style}
-      name="chevron-right-outline"
-      fill="#FA434A"
-    />
+    <View style={styles.iconRight}>
+      <Icon {...style} name="chevron-right-outline" fill="#FA434A" />
+    </View>
   );
 
   const renderDescription = (item) => (
@@ -30,6 +27,7 @@ const WorkList = ({maxHeight, navigation, detailType}) => {
         <TouchableOpacity
           onPress={() => navigation.navigate(detailType, {title: item.title})}>
           <ListItem
+            style={styles.listItem}
             title={`${item.title}`}
             description={renderDescription(item)}
             accessoryRight={renderItemAccessory}
@@ -83,11 +81,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   topMargin: {
-    marginTop: 5,
-    marginLeft: 5,
+    marginTop: 7,
+    marginLeft: 7,
   },
-  rightIcon: {
-    paddingTop: '10',
+  iconRight: {
+    paddingTop: 25,
+  },
+  listItem: {
+    paddingTop: 0,
   },
 });
 

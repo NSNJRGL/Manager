@@ -4,7 +4,7 @@ import {Text} from '@ui-kitten/components';
 import {Picker} from '@react-native-community/picker';
 
 export const CustomSelect = () => {
-  const [names, setNames] = useState({language: 'java'});
+  const [names, setNames] = useState({language: 'Mан'});
 
   return (
     <View>
@@ -13,8 +13,12 @@ export const CustomSelect = () => {
         selectedValue={names}
         style={styles.container}
         onValueChange={(itemValue, itemIndex) => setNames({name: itemValue})}>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
+        <Picker.Item label="Mонгол ардын нам" value="ман" />
+        <Picker.Item label="Mонгол ардын хувьсгалт нам" value="махн" />
+        <Picker.Item label="Ардчилсан нам" value="ардчилсан нам" />
+        <Picker.Item label="Иргэний зориг нам" value="иргэний зориг нам" />
+        <Picker.Item label="Хүн нам" value="хүн нам" />
+        <Picker.Item label="Бусад" value="бусад" />
       </Picker>
     </View>
   );

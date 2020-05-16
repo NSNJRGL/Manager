@@ -11,7 +11,7 @@ import SuccessModal from '../components/SuccessModal';
 const ResearchScreen = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollOffset, setScrollOffset] = useState(null);
-  const [formSubmitted, setformSubmitted] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const scrollViewRef = createRef();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const ResearchScreen = ({navigation}) => {
   const onHideModal = () => {
     navigation.navigate('Work');
     setIsVisible(false);
-    setformSubmitted(true);
+    setFormSubmitted(true);
   };
 
   const handleScrollTo = (p) => {
@@ -63,25 +63,29 @@ const ResearchScreen = ({navigation}) => {
             onScroll={handleOnScroll}
             scrollEventThrottle={16}
             showsVerticalScrollIndicator={false}>
-            <Layout style={styles.titleContainer}>
-              <Text category="s1">
-                Судалгаа илгээхийн тулд та доорх санал{'\n'} асуулгыг бөглөнө
-                үү!
-              </Text>
-            </Layout>
-            <Divider style={styles.dividerHeight} />
-            <Layout style={styles.bodyContainer}>
-              <CustomInput label="ХОРОО" placeHolder="" />
-              <CustomInput label="БАГ" placeHolder="" />
-              <CustomInput label="ГУДАMЖ" placeHolder="" />
-              <CustomInput label="TООT" placeHolder="" />
-              <CustomInput label="ИРГЭНИЙ ХҮСЭЛT" placeHolder="" />
-              <CustomInput label="УTАСНЫ ДУГААР" placeHolder="" />
+            <View style={styles.listContainer}>
+              <Layout style={styles.titleContainer}>
+                <Text category="s1">
+                  Судалгаа илгээхийн тулд та доорх санал{'\n'} асуулгыг бөглөнө
+                  үү!
+                </Text>
+              </Layout>
+              <Divider style={styles.dividerHeight} />
+              <Layout style={styles.bodyContainer}>
+                <CustomInput label="ХОРОО" placeHolder="" />
+                <CustomInput label="БАГ" placeHolder="" />
+                <CustomInput label="ГУДАMЖ" placeHolder="" />
+                <CustomInput label="TООT" placeHolder="" />
+                <CustomInput label="ИРГЭНИЙ ХҮСЭЛT" placeHolder="" />
+                <CustomInput label="УTАСНЫ ДУГААР" placeHolder="" />
 
-              <CustomSelect />
-            </Layout>
+                <CustomSelect />
+              </Layout>
+            </View>
           </ScrollView>
-          <Button onPress={onHideModal}>СУДАЛГАА ИЛГЭЭХ</Button>
+          <Button style={styles.button} onPress={onHideModal}>
+            СУДАЛГАА ИЛГЭЭХ
+          </Button>
         </View>
       </Modal>
 
@@ -89,10 +93,10 @@ const ResearchScreen = ({navigation}) => {
         {formSubmitted && (
           <SuccessModal
             visible={formSubmitted}
-            header="Судалгаа амжилттай илгээгдлээ"
+            header="Судалгаа амжилттай илгээгдлээ."
             button="Хаах"
             handlemodal={() => {
-              setformSubmitted(false);
+              setFormSubmitted(false);
             }}
           />
         )}
@@ -140,6 +144,12 @@ const styles = StyleSheet.create({
   scrollableModalText2: {
     fontSize: 20,
     color: 'white',
+  },
+  button: {
+    borderRadius: 0,
+  },
+  listContainer: {
+    marginBottom: 20,
   },
 });
 

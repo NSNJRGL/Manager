@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Avatar, ListItem, Text, Icon} from '@ui-kitten/components';
+import {ListItem, Icon} from '@ui-kitten/components';
 
-export const ChatItem = (props) => {
+export const NotificationItem = (props) => {
   const {message, ...listItemProps} = props;
 
   const renderMessageDate = (style) => (
@@ -13,20 +13,10 @@ export const ChatItem = (props) => {
           width={16}
           height={16}
           fill="#FA434A"
-          name="done-all"
+          name="radio-button-on"
         />
       )}
-      <Text style={styles.dateText} appearance="hint" category="c1">
-        {message.date}
-      </Text>
     </View>
-  );
-
-  const renderProfileAvatar = () => (
-    <Avatar
-      style={styles.avatar}
-      source={require('../assets/images/user-profile.jpg')}
-    />
   );
 
   return (
@@ -34,8 +24,10 @@ export const ChatItem = (props) => {
       {...listItemProps}
       title={message.fullName}
       description={message.text}
-      accessoryLeft={renderProfileAvatar}
       accessoryRight={renderMessageDate}
+      onPress={() => {
+        props.onPressNotification(message);
+      }}
     />
   );
 };
@@ -56,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatItem;
+export default NotificationItem;

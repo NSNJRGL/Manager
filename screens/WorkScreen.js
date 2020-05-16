@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {Layout, Text, Divider} from '@ui-kitten/components';
 
 import WorkHeader from '../components/WorkHeader';
@@ -9,7 +9,7 @@ import WorkList from '../components/WorkList';
 const WorkScreen = ({navigation}) => {
   return (
     <Layout style={styles.container}>
-      <WorkHeader />
+      <WorkHeader navigation={navigation} />
       <TopCalendar />
       <Divider style={styles.dividerHeight} />
       <Layout style={styles.body}>
@@ -17,7 +17,7 @@ const WorkScreen = ({navigation}) => {
           Өнөөдрийн гүйцэтгэх даалгаврууд
         </Text>
         <WorkList
-          maxHeight="91.5%"
+          maxHeight={Dimensions.get('window').height + 5}
           navigation={navigation}
           detailType="WorkDetail"
         />

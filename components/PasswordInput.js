@@ -1,19 +1,25 @@
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import {Input, Icon, Text} from '@ui-kitten/components';
 
 const PasswordInput = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+
   const onIconPress = () => {
     setSecureTextEntry(!secureTextEntry);
   };
 
   const renderPhoneIcon = (style) => <Icon {...style} name={'phone-outline'} />;
 
-  const renderPasswordIcon = (style) => (
-    <Icon {...style} name={secureTextEntry ? 'eye-off' : 'eye'} />
+  const renderPasswordIcon = (props) => (
+    <TouchableWithoutFeedback onPress={onIconPress}>
+      <Icon
+        {...props}
+        name={secureTextEntry ? 'eye-off-outline' : 'eye-outline'}
+      />
+    </TouchableWithoutFeedback>
   );
 
   const label = (text) => <Text style={styles.labelStyle}>{text}</Text>;
@@ -27,16 +33,21 @@ const PasswordInput = () => {
         accessoryRight={renderPhoneIcon}
         textStyle={styles.textStyle}
         onChangeText={setPhone}
+        autoCorrect={false}
+        autoFocus={true}
+        keyboardType="numeric"
       />
       <Input
         label={label('НУУЦ ҮГ')}
         style={styles.password}
         value={password}
         placeholder="********"
+        secureTextEntry={secureTextEntry}
         accessoryRight={renderPasswordIcon}
         textStyle={styles.textStyle}
         onIconPress={onIconPress}
         onChangeText={setPassword}
+        autoCorrect={false}
       />
     </>
   );

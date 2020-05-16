@@ -1,17 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {StyleSheet, SafeAreaView, Image, View} from 'react-native';
 import {Layout, Text, Button} from '@ui-kitten/components';
 
 import UI from '../constants/UI';
 import PasswordInput from '../components/PasswordInput';
+import Loading from '../components/Loading';
 
 const LoginScreen = (props) => {
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   const onLoginPress = () => {
+    setLoading(true);
     props.navigation.navigate('App');
   };
 
@@ -26,21 +30,20 @@ const LoginScreen = (props) => {
         </View>
         <View>
           <Text style={styles.textStyle} category="h1">
-            Нэвтрэх
+            Нэвтрэх хэсэг
           </Text>
         </View>
         <View style={styles.inputContainer}>
           <PasswordInput />
         </View>
-        <View style={styles.captionContainer}>
+        <View style={styles.buttonContainer}>
           <Text category="c1" style={styles.captionStyle} appearance="hint">
             Нууц үгээ оруулан үргэлжлүүлэх товчийг дарна уу!
           </Text>
-        </View>
-        <View style={styles.buttonContainer}>
           <Button onPress={onLoginPress}>ҮРГЭЛЖЛҮҮЛЭХ</Button>
         </View>
       </Layout>
+      {loading ? <Loading /> : null}
     </SafeAreaView>
   );
 };
@@ -67,6 +70,7 @@ const styles = StyleSheet.create({
   },
   captionStyle: {
     textAlign: 'center',
+    marginBottom: 15,
   },
 });
 

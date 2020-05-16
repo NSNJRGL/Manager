@@ -29,9 +29,14 @@ const ReportComponent = ({visible, navigation, onHandleModal}) => {
     setScrollOffset(event.nativeEvent.contentOffset.y);
   };
 
-  const handleLeftMenu = (isHide) => {
-    setIsVisible(isHide);
+  const handleLeftMenu = () => {
+    setIsVisible(false);
     onHandleModal(false);
+  };
+
+  const handleSubmit = () => {
+    setIsVisible(false);
+    onHandleModal(true);
   };
 
   const handleGallery = () => {
@@ -85,6 +90,7 @@ const ReportComponent = ({visible, navigation, onHandleModal}) => {
           <Layout style={styles.bodyContainer}>
             <Button
               style={styles.button}
+              size="small"
               status="primary"
               accessoryLeft={CameraIcon}
               onPress={handleGallery}>
@@ -101,7 +107,9 @@ const ReportComponent = ({visible, navigation, onHandleModal}) => {
             />
           </Layout>
         </ScrollView>
-        <Button onPress={handleLeftMenu}>TАйЛАН ИЛГЭЭХ</Button>
+        <Button onPress={handleSubmit} style={styles.button}>
+          TАЙЛАН ИЛГЭЭХ
+        </Button>
       </View>
     </Modal>
   );
@@ -119,8 +127,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   bodyContainer: {
-    paddingTop: 20,
-    paddingHorizontal: 20,
+    padding: 20,
   },
   dividerHeight: {
     height: 2,
@@ -147,6 +154,9 @@ const styles = StyleSheet.create({
   scrollableModalText2: {
     fontSize: 20,
     color: 'white',
+  },
+  button: {
+    borderRadius: 0,
   },
 });
 

@@ -11,6 +11,7 @@ import {
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 import ReportComponent from '../components/ReportComponent';
+import SuccessModal from '../components/SuccessModal';
 
 const PhoneIcon = (props) => <Icon {...props} name="phone-call-outline" />;
 const MessageCircleIcon = (props) => (
@@ -19,6 +20,7 @@ const MessageCircleIcon = (props) => (
 
 const WorkDetailScreen = (props) => {
   const [finishedWork, setFinishedWork] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const onCallButton = () => {
     Linking.openURL(`tel:${99824718}`);
@@ -33,7 +35,8 @@ const WorkDetailScreen = (props) => {
     setFinishedWork(true);
   };
 
-  const onHandleModal = () => {
+  const onHandleModal = (isHide) => {
+    setFormSubmitted(isHide);
     setFinishedWork(false);
   };
 
@@ -44,7 +47,7 @@ const WorkDetailScreen = (props) => {
         leftIcon={true}
         navigation={props.navigation}
       />
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Layout style={styles.header}>
           <Avatar
             style={styles.profileAvatar}
@@ -124,7 +127,9 @@ const WorkDetailScreen = (props) => {
           </View>
         </View>
         <View style={styles.contentContainer}>
-          <Button onPress={handleReport}>АЖИЛ ДУУССАН</Button>
+          <Button size="small" onPress={handleReport} style={styles.button}>
+            АЖИЛ ДУУССАН
+          </Button>
         </View>
       </ScrollView>
 
@@ -135,6 +140,17 @@ const WorkDetailScreen = (props) => {
           onHandleModal={onHandleModal}
         />
       )}
+
+      {formSubmitted && (
+        <SuccessModal
+          visible={formSubmitted}
+          header="Tайлан амжилттай илгээгдлээ."
+          button="Хаах"
+          handlemodal={() => {
+            setFormSubmitted(false);
+          }}
+        />
+      )}
     </React.Fragment>
   );
 };
@@ -142,7 +158,10 @@ const WorkDetailScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FFFFFF',
-    paddingBottom: 8,
+  },
+  button: {
+    borderRadius: 0,
+    marginBottom: 10,
   },
   header: {
     paddingVertical: 24,

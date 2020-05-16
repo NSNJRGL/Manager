@@ -1,25 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {SafeAreaView, View, StyleSheet} from 'react-native';
 import {
   TopNavigation,
   Avatar,
   Text,
-  OverflowMenu,
   Icon,
   TopNavigationAction,
-  MenuItem,
 } from '@ui-kitten/components';
 import moment from 'moment';
 
-const MenuIcon = (props) => <Icon {...props} name="bell-outline" />;
+const NotificationIcon = (props) => <Icon {...props} name="bell-outline" />;
 
-const InfoIcon = (props) => <Icon {...props} name="info" />;
-
-const LogoutIcon = (props) => <Icon {...props} name="log-out" />;
-
-const WorkHeader = () => {
-  const [menuVisible, setMenuVisible] = useState(false);
-
+const WorkHeader = ({navigation}) => {
   const renderTitle = () => (
     <View style={styles.titleContainer}>
       <Avatar
@@ -33,30 +25,18 @@ const WorkHeader = () => {
   );
 
   const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
+    navigation.navigate('Notification');
   };
 
-  const renderMenuAction = () => (
-    <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
-  );
-
-  const renderOverflowMenuAction = () => (
-    <React.Fragment>
-      <OverflowMenu
-        anchor={renderMenuAction}
-        visible={menuVisible}
-        onBackdropPress={toggleMenu}>
-        <MenuItem accessoryLeft={InfoIcon} title="About" />
-        <MenuItem accessoryLeft={LogoutIcon} title="Logout" />
-      </OverflowMenu>
-    </React.Fragment>
+  const renderNotificationAction = () => (
+    <TopNavigationAction icon={NotificationIcon} onPress={toggleMenu} />
   );
 
   return (
     <SafeAreaView>
       <TopNavigation
         title={renderTitle}
-        accessoryRight={renderOverflowMenuAction}
+        accessoryRight={renderNotificationAction}
       />
     </SafeAreaView>
   );
@@ -68,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    marginHorizontal: 15,
+    marginHorizontal: 10,
   },
   text: {
     fontWeight: 'bold',

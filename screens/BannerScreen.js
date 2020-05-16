@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {Layout} from '@ui-kitten/components';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
@@ -15,7 +15,7 @@ const BannerScreen = ({navigation}) => {
       />
       <Layout style={styles.innerContainer}>
         <BannerItems
-          maxHeight="97%"
+          maxHeight={Dimensions.get('window').height + 5}
           navigation={navigation}
           detailType="BannerDetail"
         />

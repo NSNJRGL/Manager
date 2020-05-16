@@ -36,7 +36,7 @@ const MapScreen = () => {
                 latitude: currentLat,
                 longitude: currentLong,
               }}
-              title={'Your Location'}
+              title={'Tаны байгаа газар'}
               draggable>
               <Avatar
                 size="small"
