@@ -38,6 +38,10 @@ const ResearchScreen = ({navigation}) => {
     setScrollOffset(event.nativeEvent.contentOffset.y);
   };
 
+  const handleLeftMenu = (isHide) => {
+    setIsVisible(isHide);
+  };
+
   return (
     <View>
       <Modal
@@ -48,7 +52,12 @@ const ResearchScreen = ({navigation}) => {
         propagateSwipe={true}
         style={styles.modal}>
         <View style={styles.scrollableModal}>
-          <CustomTopNavigation title="Судалгаа илгээх" leftIcon={true} />
+          <CustomTopNavigation
+            title="Судалгаа илгээх"
+            leftIcon={true}
+            navigation={navigation}
+            handleModalBackButton={handleLeftMenu}
+          />
           <ScrollView
             ref={scrollViewRef}
             onScroll={handleOnScroll}

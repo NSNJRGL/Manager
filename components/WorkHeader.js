@@ -9,6 +9,7 @@ import {
   TopNavigationAction,
   MenuItem,
 } from '@ui-kitten/components';
+import moment from 'moment';
 
 const MenuIcon = (props) => <Icon {...props} name="bell-outline" />;
 
@@ -26,7 +27,7 @@ const WorkHeader = () => {
         source={require('../assets/images/user-profile.jpg')}
       />
       <Text style={styles.text} category="h5">
-        6 сар
+        {moment().month() + 1} сар
       </Text>
     </View>
   );

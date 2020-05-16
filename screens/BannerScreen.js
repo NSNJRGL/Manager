@@ -3,17 +3,23 @@ import {StyleSheet} from 'react-native';
 import {Layout} from '@ui-kitten/components';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
-import WorkList from '../components/WorkList';
+import BannerItems from '../components/BannerItems';
 
 const BannerScreen = ({navigation}) => {
   return (
     <Layout style={styles.container}>
-      <CustomTopNavigation title="Зарлалын самбар" leftIcon={true} />
-      <WorkList
-        maxHeight="97%"
+      <CustomTopNavigation
+        title="Зарлалын самбар"
+        leftIcon={true}
         navigation={navigation}
-        detailType="BannerDetail"
       />
+      <Layout style={styles.innerContainer}>
+        <BannerItems
+          maxHeight="97%"
+          navigation={navigation}
+          detailType="BannerDetail"
+        />
+      </Layout>
     </Layout>
   );
 };
@@ -21,6 +27,8 @@ const BannerScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  innerContainer: {
     paddingHorizontal: 15,
   },
 });

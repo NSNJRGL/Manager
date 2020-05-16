@@ -9,11 +9,12 @@ const initialData = new Array(1).fill({
   text: 'Hey! How are you?',
   date: '4:30 PM',
   isRead: true,
-  fullName: 'B.Nasanjarga',
+  fullName: 'B.Nasanjargal',
 });
 
 const ChatScreen = ({navigation}) => {
-  const onItemPress = () => navigation && navigation.navigate('ChatDetail');
+  const onItemPress = () =>
+    navigation && navigation.navigate('ChatDetail', {title: 'B.Nasanjargal'});
 
   const renderItem = (info) => {
     return (
@@ -30,7 +31,7 @@ const ChatScreen = ({navigation}) => {
 
   return (
     <View>
-      <CustomTopNavigation title="Mессеж" leftIcon={true} />
+      <CustomTopNavigation title="Mессеж" leftIcon={false} />
       <List style={styles.list} data={initialData} renderItem={renderItem} />
     </View>
   );

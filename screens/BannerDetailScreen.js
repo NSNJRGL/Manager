@@ -9,6 +9,7 @@ const BannerDetailScreen = (props) => {
       <CustomTopNavigation
         title={props.route.params && props.route.params.title}
         leftIcon={true}
+        navigation={props.navigation}
       />
       <Text>bannerdetail</Text>
     </React.Fragment>

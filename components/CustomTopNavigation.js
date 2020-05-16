@@ -5,9 +5,12 @@ import {
   Text,
   Icon,
   TopNavigationAction,
+  Layout,
 } from '@ui-kitten/components';
 
-const BackIcon = () => <Icon fill="#FA434A" name="close-circle-outline" />;
+const BackIcon = (props) => (
+  <Icon width={35} height={35} {...props} name="chevron-left-outline" />
+);
 
 const CustomTopNavigation = (props) => {
   const renderTitle = () => (
@@ -16,18 +19,30 @@ const CustomTopNavigation = (props) => {
     </Text>
   );
 
-  const renderBackAction = () => <TopNavigationAction icon={BackIcon} />;
+  const handleLeftMenu = () => {
+    props.handleModalBackButton && props.handleModalBackButton(false);
+    props.navigation.goBack();
+  };
+
+  const renderBackAction = () => (
+    <TopNavigationAction icon={BackIcon} onPress={() => handleLeftMenu()} />
+  );
 
   return (
-    <TopNavigation
-      alignment="center"
-      // accessoryLeft={renderBackAction}
-      title={renderTitle}
-    />
+    <Layout style={styles.container} level="1">
+      <TopNavigation
+        alignment="center"
+        accessoryLeft={props.leftIcon ? renderBackAction : null}
+        title={renderTitle}
+      />
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    maxHeight: 50,
+  },
   text: {
     fontWeight: 'bold',
     fontSize: 18,

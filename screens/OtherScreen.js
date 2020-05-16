@@ -7,9 +7,11 @@ import CustomTopNavigation from '../components/CustomTopNavigation';
 const data = [
   {
     title: 'Зарлалын самбар',
+    nav: 'Banner',
   },
   {
     title: 'Хууль тогтоомж',
+    nav: 'Legal',
   },
 ];
 
@@ -28,19 +30,21 @@ const OtherScreen = ({navigation}) => {
     </Text>
   );
 
-  const renderItem = ({item, index}) => (
-    <ListItem
-      title={renderTitle(item)}
-      accessoryLeft={renderItemIcon}
-      accessoryRight={renderItemAccessory}
-      style={styles.listItem}
-      onPress={() => navigation.navigate('Banner')}
-    />
-  );
+  const renderItem = ({item, index}) => {
+    return (
+      <ListItem
+        title={renderTitle(item)}
+        accessoryLeft={renderItemIcon}
+        accessoryRight={renderItemAccessory}
+        style={styles.listItem}
+        onPress={() => navigation.navigate(item.nav)}
+      />
+    );
+  };
 
   return (
     <React.Fragment>
-      <CustomTopNavigation title="Бусад" leftIcon={true} />
+      <CustomTopNavigation title="Бусад" leftIcon={false} />
       <List style={styles.container} data={data} renderItem={renderItem} />
     </React.Fragment>
   );

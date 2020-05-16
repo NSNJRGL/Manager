@@ -17,6 +17,7 @@ import ChatDetailScreen from '../screens/ChatDetailScreen';
 import BannerScreen from '../screens/BannerScreen';
 import BannerDetailScreen from '../screens/BannerDetailScreen';
 import WorkDetailScreen from '../screens/WorkDetailScreen';
+import LegalScreen from '../screens/LegalScreen';
 
 const noHeaderOptions = {
   headerMode: 'none',
@@ -32,6 +33,13 @@ const WorkNavigator = () => {
       <WorkStackNavigator.Screen
         name="WorkDetail"
         component={WorkDetailScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <WorkStackNavigator.Screen
+        name="ChatDetail"
+        component={ChatDetailScreen}
         options={{
           ...TransitionPresets.SlideFromRightIOS,
         }}
@@ -83,6 +91,13 @@ const OtherNavigator = () => {
       <OtherStackNavigator.Screen
         name="BannerDetail"
         component={BannerDetailScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <OtherStackNavigator.Screen
+        name="Legal"
+        component={LegalScreen}
         options={{
           ...TransitionPresets.SlideFromRightIOS,
         }}

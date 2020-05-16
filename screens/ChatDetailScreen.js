@@ -1,12 +1,15 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 
-const ChatDetailScreen = () => {
+const ChatDetailScreen = (props) => {
   return (
     <React.Fragment>
-      <CustomTopNavigation title="Mессеж" leftIcon={true} />
+      <CustomTopNavigation
+        title={props.route.params.title}
+        leftIcon={true}
+        navigation={props.navigation}
+      />
     </React.Fragment>
   );
 };
