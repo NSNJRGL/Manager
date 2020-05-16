@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, ScrollView, Linking} from 'react-native';
 import {
   Text,
@@ -10,6 +10,7 @@ import {
 } from '@ui-kitten/components';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
+import ReportComponent from '../components/ReportComponent';
 
 const PhoneIcon = (props) => <Icon {...props} name="phone-call-outline" />;
 const MessageCircleIcon = (props) => (
@@ -17,6 +18,8 @@ const MessageCircleIcon = (props) => (
 );
 
 const WorkDetailScreen = (props) => {
+  const [finishedWork, setFinishedWork] = useState(false);
+
   const onCallButton = () => {
     Linking.openURL(`tel:${99824718}`);
   };
@@ -24,6 +27,14 @@ const WorkDetailScreen = (props) => {
   const onMessageButtonPress = () => {
     props.navigation &&
       props.navigation.navigate('ChatDetail', {title: 'B.Nasanjargal'});
+  };
+
+  const handleReport = () => {
+    setFinishedWork(true);
+  };
+
+  const onHandleModal = () => {
+    setFinishedWork(false);
   };
 
   return (
@@ -113,16 +124,23 @@ const WorkDetailScreen = (props) => {
           </View>
         </View>
         <View style={styles.contentContainer}>
-          <Button>АЖИЛ ДУУССАН</Button>
+          <Button onPress={handleReport}>АЖИЛ ДУУССАН</Button>
         </View>
       </ScrollView>
+
+      {finishedWork && (
+        <ReportComponent
+          visible={finishedWork}
+          navigation={props.navigation}
+          onHandleModal={onHandleModal}
+        />
+      )}
     </React.Fragment>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#FFFFFF',
     paddingBottom: 8,
   },

@@ -60,6 +60,8 @@ target 'Manager' do
 
   pod 'RNCPicker', :path => '../node_modules/@react-native-community/picker'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'ManagerTests' do
     inherit! :complete
     # Pods for testing

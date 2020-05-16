@@ -19,13 +19,18 @@ const CustomTopNavigation = (props) => {
     </Text>
   );
 
-  const handleLeftMenu = () => {
+  const handleLeftMenu = (navigateBack) => {
     props.handleModalBackButton && props.handleModalBackButton(false);
-    props.navigation.goBack();
+    if (!navigateBack) {
+      props.navigation.goBack();
+    }
   };
 
   const renderBackAction = () => (
-    <TopNavigationAction icon={BackIcon} onPress={() => handleLeftMenu()} />
+    <TopNavigationAction
+      icon={BackIcon}
+      onPress={() => handleLeftMenu(props.setBack)}
+    />
   );
 
   return (
