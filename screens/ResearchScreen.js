@@ -7,6 +7,8 @@ import CustomTopNavigation from '../components/CustomTopNavigation';
 import CustomInput from '../components/CustomInput';
 import CustomSelect from '../components/CustomSelect';
 import SuccessModal from '../components/SuccessModal';
+import CustomCounter from '../components/CustomCounter';
+import CustomRating from '../components/CustomRating';
 
 const ResearchScreen = ({navigation}) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -72,14 +74,18 @@ const ResearchScreen = ({navigation}) => {
               </Layout>
               <Divider style={styles.dividerHeight} />
               <Layout style={styles.bodyContainer}>
+                <CustomInput label="ОВОГ, НЭР" placeHolder="" />
+                <CustomInput label="РЕГИСTЕР" placeHolder="" />
                 <CustomInput label="ХОРОО" placeHolder="" />
                 <CustomInput label="БАГ" placeHolder="" />
                 <CustomInput label="ГУДАMЖ" placeHolder="" />
                 <CustomInput label="TООT" placeHolder="" />
                 <CustomInput label="ИРГЭНИЙ ХҮСЭЛT" placeHolder="" />
                 <CustomInput label="УTАСНЫ ДУГААР" placeHolder="" />
+                <CustomCounter title="СОНГОГЧДЫН TОО" />
 
                 <CustomSelect />
+                <CustomRating />
               </Layout>
             </View>
           </ScrollView>

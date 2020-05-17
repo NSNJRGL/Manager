@@ -8,10 +8,22 @@ const data = [
   {
     title: 'Зарлалын самбар',
     nav: 'Banner',
+    icon: 'clipboard-outline',
   },
   {
-    title: 'Хууль тогтоомж',
+    title: 'Үндсэн хууль',
     nav: 'Legal',
+    icon: 'book-outline',
+  },
+  {
+    title: 'Сонгуулийн тухай',
+    nav: 'AboutLegalScreen',
+    icon: 'battery-outline',
+  },
+  {
+    title: 'Улсын их хурлын сонгуулийн тухай хууль',
+    nav: 'NationLegalScreen',
+    icon: 'browser-outline',
   },
 ];
 
@@ -20,8 +32,8 @@ const OtherScreen = ({navigation}) => {
     <Icon {...props} name="chevron-right-outline" fill="#222C44" />
   );
 
-  const renderItemIcon = (props) => (
-    <Icon {...props} name="clipboard-outline" fill="#222C44" />
+  const renderItemIcon = (props, icon) => (
+    <Icon {...props} name={icon} fill="#222C44" />
   );
 
   const renderTitle = (item) => (
@@ -34,7 +46,7 @@ const OtherScreen = ({navigation}) => {
     return (
       <ListItem
         title={renderTitle(item)}
-        accessoryLeft={renderItemIcon}
+        accessoryLeft={(props) => renderItemIcon(props, item.icon)}
         accessoryRight={renderItemAccessory}
         style={styles.listItem}
         onPress={() => navigation.navigate(item.nav)}

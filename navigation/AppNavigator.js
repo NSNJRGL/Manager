@@ -19,6 +19,8 @@ import BannerDetailScreen from '../screens/BannerDetailScreen';
 import WorkDetailScreen from '../screens/WorkDetailScreen';
 import LegalScreen from '../screens/LegalScreen';
 import NotificationScreen from '../screens/NotificationScreen';
+import AboutLegalScreen from '../screens/AboutLegalScreen';
+import NationLegalScreen from '../screens/NationLegalScreen';
 
 const noHeaderOptions = {
   headerMode: 'none',
@@ -112,6 +114,20 @@ const OtherNavigator = () => {
       <OtherStackNavigator.Screen
         name="Legal"
         component={LegalScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <OtherStackNavigator.Screen
+        name="AboutLegal"
+        component={AboutLegalScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <OtherStackNavigator.Screen
+        name="NationLegal"
+        component={NationLegalScreen}
         options={{
           ...TransitionPresets.SlideFromRightIOS,
         }}

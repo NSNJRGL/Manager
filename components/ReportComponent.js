@@ -1,8 +1,9 @@
-import React, {useState, createRef} from 'react';
-import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
+import React, {useState, createRef, useEffect} from 'react';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {Button, Layout, Divider, Icon} from '@ui-kitten/components';
 import Modal from 'react-native-modal';
 import ImagePicker from 'react-native-image-picker';
+import Geolocation from '@react-native-community/geolocation';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 import CustomCounter from '../components/CustomCounter';
@@ -17,7 +18,16 @@ const ReportComponent = ({visible, navigation, onHandleModal}) => {
   const [filePath, setFilePath] = useState(null);
   const [fileData, setFileData] = useState(null);
   const [fileUri, setFileUri] = useState(null);
+  const [currentLat, setCurrentLat] = useState(0);
+  const [currentLong, setcurrentLong] = useState(0);
   const scrollViewRef = createRef();
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition((info) => {
+      setCurrentLat(info.coords.latitude);
+      setcurrentLong(info.coords.longitude);
+    });
+  }, []);
 
   const handleScrollTo = (p) => {
     if (scrollViewRef.current) {
