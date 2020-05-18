@@ -71,14 +71,6 @@ class Firebase {
     }
   };
 
-  parse = (snapshot) => {
-    const {timestamp: numberStamp, text, user} = snapshot.val();
-    const {key: _id} = snapshot;
-    const timestamp = new Date(numberStamp);
-    const message = {_id, timestamp, text, user};
-    return message;
-  };
-
   refOn = (callback, currentUserId, receiverId) => {
     firebase
       .database()
@@ -86,14 +78,16 @@ class Firebase {
       .on('child_added', (snapshot) => callback(this.parse(snapshot)));
   };
 
-  send = (messages, currentUserId, receiverId) => {
+  send = (messages, imageUrl, currentUserId, receiverId) => {
     for (let i = 0; i < messages.length; i++) {
       const {text, user} = messages[i];
       const message = {
         text,
         user,
         createdAt: firebase.database.ServerValue.TIMESTAMP,
+        image: imageUrl,
       };
+
       firebase
         .database()
         .ref(`Messages_${currentUserId}_${receiverId}`)
@@ -102,10 +96,12 @@ class Firebase {
   };
 
   parse = (snapshot) => {
-    const {timestamp: numberStamp, text, user} = snapshot.val();
+    const {numberStamp, text, user, image} = snapshot.val();
+    const {key: id} = snapshot;
     const {key: _id} = snapshot;
     const timestamp = new Date(numberStamp);
-    const message = {_id, timestamp, text, user};
+
+    const message = {id, _id, timestamp, text, user, image};
     return message;
   };
 

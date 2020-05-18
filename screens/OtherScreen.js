@@ -17,12 +17,12 @@ const data = [
   },
   {
     title: 'Сонгуулийн тухай',
-    nav: 'AboutLegalScreen',
+    nav: 'AboutLegal',
     icon: 'battery-outline',
   },
   {
     title: 'Улсын их хурлын сонгуулийн тухай хууль',
-    nav: 'NationLegalScreen',
+    nav: 'NationLegal',
     icon: 'browser-outline',
   },
 ];

@@ -36,7 +36,7 @@ const ChatScreen = ({navigation}) => {
   }, [email, password]);
 
   const loginSuccess = () => {
-    console.log('login successf  ul');
+    console.log('login successful');
   };
   const loginFailed = () => {
     console.log('Login failure. Please tried again.');
