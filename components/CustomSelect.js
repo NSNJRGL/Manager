@@ -1,32 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Text} from '@ui-kitten/components';
 import {Picker} from '@react-native-community/picker';
-
-const namiinNers = [
-  'Mонгол АН',
-  'Ардчилсан нам',
-  'Зон олны нам',
-  'Дэлхийн Mон нам',
-  'АTХН',
-  'Хөгжлийн хөтөлбөр нам',
-  'Ард түмний нам',
-  'Mонголын ногоон нам',
-  'Tа бидний эвсэл',
-  'Эх орон нам',
-  'Ардчилал шинэчлэл нам',
-  'Эрх чөлөөг хэрэгжүүлэгч нам',
-  'Сахигтун үндсэн хуулийн 19 эсвэл',
-  'Ард түмний олонхын засаглал нам',
-  'Гэр хороолол хөгжлийн нам',
-  'Их эв нам',
-  'Эх орончдын нэгдсэн нам',
-  'Бие даагч',
-  'Саарал',
-];
+import {YellowBox} from 'react-native';
 
 export const CustomSelect = () => {
-  const [value, setValue] = useState('Mонгол АН');
+  const [value, setValue] = useState('Mонгол ардын нам');
+
+  useEffect(() => {
+    YellowBox.ignoreWarnings(['Animated']);
+  }, []);
 
   return (
     <View>
@@ -35,7 +18,7 @@ export const CustomSelect = () => {
         selectedValue={value}
         style={styles.container}
         onValueChange={(itemValue) => setValue(itemValue)}>
-        <Picker.Item label="Mонгол АН" value="Mонгол АН" />
+        <Picker.Item label="Mонгол ардын нам" value="Mонгол ардын нам" />
         <Picker.Item label="Ардчилсан нам" value="Ардчилсан нам" />
         <Picker.Item label="Зон олны нам" value="Зон олны нам" />
         <Picker.Item
@@ -56,8 +39,8 @@ export const CustomSelect = () => {
           value="Ардчилал шинэчлэл нам"
         />
         <Picker.Item
-          label="Шинэ нам, БНН, Үбзиан, MҮАН-ын эсвэл"
-          value="Шинэ нам, БНН, Үбзиан, MҮАН-ын эсвэл"
+          label="Шинэ нам, БНН, ҮБЗ нам, MҮАН-ын эсвэл"
+          value="Шинэ нам, БНН, ҮБЗ нам, MҮАН-ын эсвэл"
         />
         <Picker.Item
           label="Зөв хүн электрат эвсэл"

@@ -21,6 +21,7 @@ import LegalScreen from '../screens/LegalScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import AboutLegalScreen from '../screens/AboutLegalScreen';
 import NationLegalScreen from '../screens/NationLegalScreen';
+import VideoAboutLegalScreen from '../screens/VideoAboutLegalScreen';
 
 const noHeaderOptions = {
   headerMode: 'none',
@@ -128,6 +129,13 @@ const OtherNavigator = () => {
       <OtherStackNavigator.Screen
         name="NationLegal"
         component={NationLegalScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <OtherStackNavigator.Screen
+        name="VideoAboutLegal"
+        component={VideoAboutLegalScreen}
         options={{
           ...TransitionPresets.SlideFromRightIOS,
         }}

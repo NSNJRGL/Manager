@@ -115,18 +115,6 @@ const WorkDetailScreen = (props) => {
           </View>
         </View>
         <View style={styles.contentContainer}>
-          <View style={styles.innerContainer}>
-            <View style={styles.titleHeader}>
-              <Text style={styles.text} category="h6">
-                Tөсөв
-              </Text>
-            </View>
-            <Text style={styles.textDescription} category="p1">
-              100 000 мянган төгрөг дотор багтаах
-            </Text>
-          </View>
-        </View>
-        <View style={styles.contentContainer}>
           <Button size="small" onPress={handleReport} style={styles.button}>
             АЖИЛ ДУУССАН
           </Button>

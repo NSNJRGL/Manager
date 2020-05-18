@@ -25,6 +25,11 @@ const data = [
     nav: 'NationLegal',
     icon: 'browser-outline',
   },
+  {
+    title: 'Намын видео',
+    nav: 'VideoAboutLegal',
+    icon: 'browser-outline',
+  },
 ];
 
 const OtherScreen = ({navigation}) => {
