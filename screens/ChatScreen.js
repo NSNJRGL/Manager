@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {List, Divider} from '@ui-kitten/components';
 import ChatItem from '../components/ChatItem';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
-import firebaseSvc from '../services/Firebase';
 
 const initialData = new Array(1).fill({
   text: 'Tань руу тайлангаа явууллаа.',
@@ -14,34 +13,6 @@ const initialData = new Array(1).fill({
 });
 
 const ChatScreen = ({navigation}) => {
-  const [email, setEmail] = useState('sammy@test.com');
-  const [password, setPassword] = useState('123456');
-  const [name, setName] = useState('sammy');
-  const [avatar, setAvatar] = useState('');
-
-  useEffect(() => {
-    const user = {
-      email: email,
-      password: password,
-      name: 'sammy',
-      avatar: '',
-    };
-
-    firebaseSvc.login(user, loginSuccess, loginFailed);
-    let uploadUrl = firebaseSvc.uploadImage(
-      'https://img.favpng.com/25/1/17/avatar-user-computer-icons-software-developer-png-favpng-7SbFpNeqKqhhTrrrnHFUqk6U4.jpg',
-    );
-    setAvatar(uploadUrl);
-    firebaseSvc.updateProfile('sammy', uploadUrl);
-  }, [email, password]);
-
-  const loginSuccess = () => {
-    console.log('login successful');
-  };
-  const loginFailed = () => {
-    console.log('Login failure. Please tried again.');
-  };
-
   const onItemPress = () =>
     navigation &&
     navigation.navigate('ChatDetail', {
