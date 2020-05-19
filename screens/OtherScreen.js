@@ -16,9 +16,9 @@ const data = [
     icon: 'book-outline',
   },
   {
-    title: 'Сонгуулийн тухай',
+    title: 'Сонгуулийн тухай хууль',
     nav: 'AboutLegal',
-    icon: 'battery-outline',
+    icon: 'attach-outline',
   },
   {
     title: 'Улсын их хурлын сонгуулийн тухай хууль',

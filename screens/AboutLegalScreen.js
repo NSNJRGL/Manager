@@ -1,10 +1,13 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {Layout, Text} from '@ui-kitten/components';
+import {StyleSheet, Dimensions, View} from 'react-native';
+import {Layout} from '@ui-kitten/components';
+import Pdf from 'react-native-pdf';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 
 const AboutLegalScreen = ({navigation}) => {
+  const source = require('../assets/pdf/main2.pdf');
+
   return (
     <Layout style={styles.container}>
       <CustomTopNavigation
@@ -12,6 +15,9 @@ const AboutLegalScreen = ({navigation}) => {
         leftIcon={true}
         navigation={navigation}
       />
+      <View style={styles.innerContainer}>
+        <Pdf source={source} style={styles.pdf} />
+      </View>
     </Layout>
   );
 };
@@ -21,17 +27,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   innerContainer: {
-    paddingHorizontal: 15,
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 25,
   },
-  titleText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    paddingVertical: 10,
-  },
-  description: {
-    marginBottom: 20,
-    color: '#8F9BB3',
-    fontSize: 15,
+  pdf: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });
 
