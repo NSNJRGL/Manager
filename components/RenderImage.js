@@ -1,12 +1,17 @@
 import React from 'react';
-import {StyleSheet, ImageBackground} from 'react-native';
+import {StyleSheet, ImageBackground, ScrollView} from 'react-native';
 
-const RenderImage = ({fileData}) => {
+const RenderImage = ({images}) => {
   return (
-    <ImageBackground
-      style={styles.headerContainer}
-      source={{uri: 'data:image/jpeg;base64,' + fileData}}
-    />
+    <ScrollView>
+      {images.length > 0 &&
+        images.map((i, key) => (
+          <ImageBackground
+            style={styles.headerContainer}
+            source={{uri: i.uri}}
+          />
+        ))}
+    </ScrollView>
   );
 };
 

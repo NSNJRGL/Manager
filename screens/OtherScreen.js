@@ -26,9 +26,14 @@ const data = [
     icon: 'browser-outline',
   },
   {
-    title: 'Намын видео',
+    title: 'Видео',
     nav: 'VideoAboutLegal',
     icon: 'browser-outline',
+  },
+  {
+    title: 'Mөрийн хөтөлбөр',
+    nav: 'Campaign',
+    icon: 'list-outline',
   },
 ];
 

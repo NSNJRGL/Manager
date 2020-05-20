@@ -1,8 +1,8 @@
 import React, {useState, createRef, useEffect} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {Button, Layout, Divider, Icon} from '@ui-kitten/components';
+import {StyleSheet, View, ScrollView} from 'react-native';
+import {Button, Layout, Divider, Icon, Text} from '@ui-kitten/components';
 import Modal from 'react-native-modal';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import Geolocation from '@react-native-community/geolocation';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
@@ -15,9 +15,7 @@ const CameraIcon = (props) => <Icon {...props} name="camera-outline" />;
 const ReportComponent = ({visible, navigation, onHandleModal}) => {
   const [scrollOffset, setScrollOffset] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
-  const [filePath, setFilePath] = useState(null);
-  const [fileData, setFileData] = useState(null);
-  const [fileUri, setFileUri] = useState(null);
+  const [images, setImages] = useState([]);
   const [currentLat, setCurrentLat] = useState(0);
   const [currentLong, setcurrentLong] = useState(0);
   const scrollViewRef = createRef();
@@ -50,23 +48,16 @@ const ReportComponent = ({visible, navigation, onHandleModal}) => {
   };
 
   const handleGallery = () => {
-    let options = {
-      title: 'Зургаа сонгоно уу',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else {
-        setFilePath(response);
-        setFileData(response.data);
-        setFileUri(response.uri);
-      }
+    ImagePicker.openPicker({
+      multiple: true,
+    }).then((response) => {
+      const size = 10;
+
+      setImages(
+        response.slice(0, size).map((i) => {
+          return {uri: i.path, width: i.width, height: i.height, mime: i.mime};
+        }),
+      );
     });
   };
 
@@ -98,6 +89,9 @@ const ReportComponent = ({visible, navigation, onHandleModal}) => {
           </Layout>
           <Divider style={styles.dividerHeight} />
           <Layout style={styles.bodyContainer}>
+            <Text category="h6" style={styles.title}>
+              Зураг оруулна уу(дээд тал нь 10-н зураг)
+            </Text>
             <Button
               style={styles.button}
               size="small"
@@ -106,7 +100,7 @@ const ReportComponent = ({visible, navigation, onHandleModal}) => {
               onPress={handleGallery}>
               Зураг сонгох
             </Button>
-            {fileData && <RenderImage fileData={fileData} />}
+            {images && <RenderImage images={images} />}
             <CustomCounter title="Хэдэн хүнтэй уулзсан бэ?" />
             <CustomCounter title="Хэдэн материал тараасан бэ?" />
 
@@ -167,6 +161,9 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 0,
+  },
+  title: {
+    marginBottom: 20,
   },
 });
 

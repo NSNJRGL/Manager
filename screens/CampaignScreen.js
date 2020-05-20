@@ -5,25 +5,17 @@ import {WebView} from 'react-native-webview';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 
-const VideoAboutLegalScreen = ({navigation}) => {
+const CampaignScreen = ({navigation}) => {
   return (
     <Layout style={styles.container}>
       <CustomTopNavigation
-        title="Видео"
+        title="Mөрийн хөтөлбөр"
         leftIcon={true}
         navigation={navigation}
       />
       <View style={styles.innerContainer}>
         <View style={styles.video}>
-          <Text style={styles.titleText}>ЕРӨНХИЙ БИЧЛЭГ</Text>
-          <WebView
-            source={{
-              uri: 'https://www.youtube.com/embed/zckySF2I1dY',
-            }}
-            javaScriptEnabled={true}
-            allowsFullscreenVideo={true}
-            allowsInlineMediaPlayback={true}
-          />
+          <Text style={styles.titleText} />
         </View>
       </View>
     </Layout>
@@ -48,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VideoAboutLegalScreen;
+export default CampaignScreen;

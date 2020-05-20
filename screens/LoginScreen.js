@@ -71,7 +71,6 @@ const LoginScreen = (props) => {
         console.log(e);
       }
     })();
-
     if (!netInfo.isConnected) {
       Keyboard.dismiss();
     }
@@ -110,19 +109,25 @@ const LoginScreen = (props) => {
     Keyboard.dismiss();
     setLoading(true);
     getFetch(
-      'https://jsonplaceholder.typicode.com/todos/1',
-      // JSON.stringify({
-      //   phone: values.phone,
-      //   password: values.password,
-      // }),
+      getAuthUrl(),
+      JSON.stringify({
+        phone: values.phone,
+        password: values.password,
+      }),
     )
       .then((response) => response.json())
       .then((json) => {
-        setLoading(false);
-        storeData('true');
-        props.navigation.navigate('App');
-        // TODO swap json values
-        loginFirebase('sammy@test.com', values.password);
+        console.log(json);
+        if (json.code === '0') {
+          setLoading(false);
+          storeData(json.access_token);
+          props.navigation.navigate('App');
+          // TODO swap json values
+          loginFirebase('sammy@test.com', values.password);
+        } else {
+          setLoading(false);
+          setMessages(json.message);
+        }
       })
       .catch((error) => {
         setMessages(error);

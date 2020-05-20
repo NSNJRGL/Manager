@@ -1,16 +1,14 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {GiftedChat, Bubble, Send, Actions} from 'react-native-gifted-chat';
-import {Button, Icon, Text} from '@ui-kitten/components';
+import {Icon, Text} from '@ui-kitten/components';
 import {YellowBox} from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 import firebaseSvc from '../services/Firebase';
 import Loading from '../components/Loading';
 import UI from '../constants/UI';
-
-const PlusButton = (props) => <Icon {...props} name="plus-circle" />;
 
 class ChatDetailScreen extends React.Component {
   constructor(props) {
@@ -19,9 +17,8 @@ class ChatDetailScreen extends React.Component {
       messages: [],
       currentUserId: props.route.params.current_user_id,
       receiverId: props.route.params.receiver_id,
-      filePath: null,
-      fileData: null,
       fileUrl: null,
+      text: '',
     };
 
     this.onHandlePic = this.onHandlePic.bind(this);
@@ -69,23 +66,10 @@ class ChatDetailScreen extends React.Component {
   }
 
   onHandlePic() {
-    let options = {
-      title: 'Зургаа сонгоно уу',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else {
-        this.setState({filePath: response});
-        this.setState({fileData: response.data});
-        this.setState({fileUrl: response.uri});
-      }
+    ImagePicker.openPicker({
+      multiple: false,
+    }).then((response) => {
+      this.setState({fileUrl: response.path});
     });
   }
 
@@ -94,7 +78,7 @@ class ChatDetailScreen extends React.Component {
       <Actions
         {...props}
         options={{
-          ['Send Image']: this.onHandlePic,
+          ['Зураг сонгох']: this.onHandlePic,
         }}
         icon={() => <Icon name="camera" fill="#FA434A" />}
         onSend={(args) => console.log(args)}
@@ -124,7 +108,8 @@ class ChatDetailScreen extends React.Component {
           <GiftedChat
             messages={this.state.messages}
             isTyping={true}
-            onSend={(newMessages) =>
+            text={this.state.text}
+            onSend={(newMessages = '') =>
               firebaseSvc.send(
                 newMessages,
                 this.state.fileUrl,
@@ -144,6 +129,8 @@ class ChatDetailScreen extends React.Component {
             renderActions={this.renderAction}
             renderLoading={() => <Loading />}
             renderSend={this.renderSend}
+            alwaysShowSend={true}
+            onInputTextChanged={(text) => this.setState({text})}
           />
         </View>
       </React.Fragment>

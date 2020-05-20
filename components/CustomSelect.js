@@ -33,11 +33,6 @@ export const CustomSelect = () => {
         <Picker.Item label="Ард түмний нам" value="Ард түмний нам" />
         <Picker.Item label="Mонголын ногоон нам" value="Mонголын ногоон нам" />
         <Picker.Item label="Tа бидний эвсэл" value="Tа бидний эвсэл" />
-        <Picker.Item label="Эх орон нам" value="Эх орон нам" />
-        <Picker.Item
-          label="Ардчилал шинэчлэл нам"
-          value="Ардчилал шинэчлэл нам"
-        />
         <Picker.Item
           label="Шинэ нам, БНН, ҮБЗ нам, MҮАН-ын эсвэл"
           value="Шинэ нам, БНН, ҮБЗ нам, MҮАН-ын эсвэл"
