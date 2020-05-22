@@ -7,8 +7,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 import firebaseSvc from '../services/Firebase';
-import Loading from '../components/Loading';
 import UI from '../constants/UI';
+import LoadingChat from '../components/LoadingChat';
 
 class ChatDetailScreen extends React.Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class ChatDetailScreen extends React.Component {
       receiverId: props.route.params.receiver_id,
       fileUrl: null,
       text: '',
+      isLoading: true,
     };
 
     this.onHandlePic = this.onHandlePic.bind(this);
@@ -35,6 +36,7 @@ class ChatDetailScreen extends React.Component {
       (message) =>
         this.setState((previousState) => ({
           messages: GiftedChat.append(previousState.messages, message),
+          isLoading: false,
         })),
       this.state.currentUserId,
       this.state.receiverId,
@@ -45,6 +47,8 @@ class ChatDetailScreen extends React.Component {
     this.props.navigation.dangerouslyGetParent().setOptions({
       tabBarVisible: true,
     });
+
+    firebaseSvc.refOff();
   }
 
   renderBubble(props) {
@@ -70,6 +74,31 @@ class ChatDetailScreen extends React.Component {
       multiple: false,
     }).then((response) => {
       this.setState({fileUrl: response.path});
+      if (this.state.text === '') {
+        const message = [
+          {
+            _id: firebaseSvc.uid(),
+            text: '',
+            numberStamp: new Date(),
+            user: {
+              name: firebaseSvc.name(),
+              email: firebaseSvc.email(),
+              avatar: firebaseSvc.avatar(),
+              id: firebaseSvc.uid(),
+              _id: firebaseSvc.uid(),
+            },
+          },
+        ];
+
+        firebaseSvc.send(
+          message,
+          this.state.fileUrl,
+          this.state.currentUserId,
+          this.state.receiverId,
+        );
+
+        this.setState({fileUrl: ''});
+      }
     });
   }
 
@@ -81,7 +110,6 @@ class ChatDetailScreen extends React.Component {
           ['Зураг сонгох']: this.onHandlePic,
         }}
         icon={() => <Icon name="camera" fill="#FA434A" />}
-        onSend={(args) => console.log(args)}
       />
     );
   }
@@ -105,33 +133,38 @@ class ChatDetailScreen extends React.Component {
           navigation={this.props.navigation}
         />
         <View style={styles.container}>
-          <GiftedChat
-            messages={this.state.messages}
-            isTyping={true}
-            text={this.state.text}
-            onSend={(newMessages = '') =>
-              firebaseSvc.send(
-                newMessages,
-                this.state.fileUrl,
-                this.state.currentUserId,
-                this.state.receiverId,
-              )
-            }
-            user={{
-              name: firebaseSvc.name(),
-              email: firebaseSvc.email(),
-              avatar: firebaseSvc.avatar(),
-              id: firebaseSvc.uid(),
-              _id: firebaseSvc.uid(),
-            }}
-            placeholder="Tа энд дарж мессежээ илгээнэ үү!"
-            renderBubble={this.renderBubble}
-            renderActions={this.renderAction}
-            renderLoading={() => <Loading />}
-            renderSend={this.renderSend}
-            alwaysShowSend={true}
-            onInputTextChanged={(text) => this.setState({text})}
-          />
+          <>
+            {this.state.isLoading && <LoadingChat />}
+            <GiftedChat
+              messages={this.state.messages}
+              isTyping={true}
+              text={this.state.text}
+              onSend={(newMessages) => {
+                firebaseSvc.send(
+                  newMessages,
+                  this.state.fileUrl,
+                  this.state.currentUserId,
+                  this.state.receiverId,
+                );
+                this.setState({fileUrl: ''});
+              }}
+              user={{
+                name: firebaseSvc.name(),
+                email: firebaseSvc.email(),
+                avatar: firebaseSvc.avatar(),
+                id: firebaseSvc.uid(),
+                _id: firebaseSvc.uid(),
+              }}
+              placeholder="Tа энд дарж мессежээ бичнэ үү!"
+              renderBubble={this.renderBubble}
+              renderActions={this.renderAction}
+              renderLoading={() => <LoadingChat />}
+              renderSend={this.renderSend}
+              alwaysShowSend={true}
+              onInputTextChanged={(text) => this.setState({text})}
+              infiniteScroll={true}
+            />
+          </>
         </View>
       </React.Fragment>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {List, ListItem, Icon} from '@ui-kitten/components';
+import {StyleSheet, Alert} from 'react-native';
+import {Text, List, ListItem, Icon} from '@ui-kitten/components';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 
@@ -35,6 +36,10 @@ const data = [
     nav: 'Campaign',
     icon: 'list-outline',
   },
+  {
+    title: 'Гарах',
+    icon: 'power-outline',
+  },
 ];
 
 const OtherScreen = ({navigation}) => {
@@ -52,6 +57,14 @@ const OtherScreen = ({navigation}) => {
     </Text>
   );
 
+  const checkNavigation = (item) => {
+    if (item.nav) {
+      navigation.navigate(item.nav);
+    } else {
+      handleSignout();
+    }
+  };
+
   const renderItem = ({item, index}) => {
     return (
       <ListItem
@@ -59,8 +72,38 @@ const OtherScreen = ({navigation}) => {
         accessoryLeft={(props) => renderItemIcon(props, item.icon)}
         accessoryRight={renderItemAccessory}
         style={styles.listItem}
-        onPress={() => navigation.navigate(item.nav)}
+        onPress={() => checkNavigation(item)}
       />
+    );
+  };
+
+  const removeItem = async (key) => {
+    try {
+      await AsyncStorage.removeItem(key);
+      return true;
+    } catch (exception) {
+      return false;
+    }
+  };
+
+  const handleSignout = () => {
+    Alert.alert(
+      'Election Manager',
+      'Системээс гарахдаа итгэлтэй байна уу?',
+      [
+        {
+          text: 'Хаах',
+          style: 'cancel',
+        },
+        {
+          text: 'Гарах',
+          onPress: () => {
+            removeItem('token');
+            navigation.navigate('Login');
+          },
+        },
+      ],
+      {cancelable: true},
     );
   };
 

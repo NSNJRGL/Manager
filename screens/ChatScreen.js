@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {List, Divider} from '@ui-kitten/components';
 import ChatItem from '../components/ChatItem';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
+import {UserContext} from '../context/UserContext';
 
 const initialData = new Array(1).fill({
   text: 'Tань руу тайлангаа явууллаа.',
@@ -13,6 +14,8 @@ const initialData = new Array(1).fill({
 });
 
 const ChatScreen = ({navigation}) => {
+  const currentUser = useContext(UserContext);
+
   const onItemPress = () =>
     navigation &&
     navigation.navigate('ChatDetail', {

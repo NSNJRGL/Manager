@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Input, Text} from '@ui-kitten/components';
 
-export const CustomInput = ({label, placeholder}) => {
-  const [value, setValue] = useState('');
-
+export const CustomInput = ({
+  value,
+  label,
+  placeholder,
+  onChangeText,
+  onBlur,
+}) => {
   const renderLabel = () => (
     <Text category="label" style={styles.labelStyle}>
       {label}
@@ -16,7 +20,8 @@ export const CustomInput = ({label, placeholder}) => {
       value={value}
       label={renderLabel}
       placeholder={placeholder}
-      onChangeText={(nextValue) => setValue(nextValue)}
+      onChangeText={onChangeText}
+      onBlur={onBlur}
       style={styles.inputStyle}
     />
   );

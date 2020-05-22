@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {
   StyleSheet,
@@ -19,6 +19,7 @@ import {getAuthUrl, getFetch} from '../constants/ApiUrls';
 import {signInSchema} from '../constants/ValidationSchemas';
 import NetworkStatus from '../components/NetworkStatus';
 import firebaseSvc from '../services/Firebase';
+import {UserContext} from '../context/UserContext';
 
 const AlertIcon = (props) => <Icon {...props} name="alert-circle-outline" />;
 
@@ -28,8 +29,6 @@ const label = (text) => <Text style={styles.labelStyle}>{text}</Text>;
 
 const LoginScreen = (props) => {
   const [loading, setLoading] = useState(false);
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [messages, setMessages] = useState('');
   const [isConnected, setIsConnected] = useState(false);
@@ -38,32 +37,16 @@ const LoginScreen = (props) => {
     password: '',
   };
   const netInfo = useNetInfo();
-
-  const storeData = async (value) => {
-    try {
-      await AsyncStorage.setItem('isLoggedIn', value);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const removeItem = async (key) => {
-    try {
-      await AsyncStorage.removeItem(key);
-      return true;
-    } catch (exception) {
-      return false;
-    }
-  };
+  const {currentUser, setCurrentUser} = useContext(UserContext);
 
   useEffect(() => {
     setIsConnected(netInfo.isConnected);
     (async () => {
       try {
-        await AsyncStorage.getItem('isLoggedIn')
+        await AsyncStorage.getItem('token')
           .then(SplashScreen.hide())
           .then((key) => {
-            if (key === 'true') {
+            if (key) {
               props.navigation.navigate('App');
             }
           });
@@ -74,7 +57,15 @@ const LoginScreen = (props) => {
     if (!netInfo.isConnected) {
       Keyboard.dismiss();
     }
-  }, [netInfo]);
+  }, [netInfo, props.navigation]);
+
+  const storeData = async (access_token) => {
+    try {
+      await AsyncStorage.setItem('token', access_token);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const onIconPress = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -110,6 +101,7 @@ const LoginScreen = (props) => {
     setLoading(true);
     getFetch(
       getAuthUrl(),
+      'POST',
       JSON.stringify({
         phone: values.phone,
         password: values.password,
@@ -117,13 +109,13 @@ const LoginScreen = (props) => {
     )
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         if (json.code === '0') {
           setLoading(false);
+          // Todo pass token to asyncstorage
           storeData(json.access_token);
+          setCurrentUser(json.user_id);
           props.navigation.navigate('App');
-          // TODO swap json values
-          loginFirebase('sammy@test.com', values.password);
+          loginFirebase(json.email, values.password);
         } else {
           setLoading(false);
           setMessages(json.message);

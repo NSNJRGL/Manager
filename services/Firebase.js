@@ -79,13 +79,13 @@ class Firebase {
   };
 
   send = (messages, imageUrl, currentUserId, receiverId) => {
-    console.log(messages, imageUrl);
     for (let i = 0; i < messages.length; i++) {
       const {text, user} = messages[i];
       const message = {
+        _id: this.uid(),
         text,
         user,
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        numberStamp: firebase.database.ServerValue.TIMESTAMP,
         image: imageUrl,
       };
 
@@ -100,9 +100,9 @@ class Firebase {
     const {numberStamp, text, user, image} = snapshot.val();
     const {key: id} = snapshot;
     const {key: _id} = snapshot;
-    const timestamp = new Date(numberStamp);
+    const createdAt = new Date(numberStamp);
 
-    const message = {id, _id, timestamp, text, user, image};
+    const message = {id, _id, createdAt, text, user, image};
     return message;
   };
 

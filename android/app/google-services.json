@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "267787240197",
+    "firebase_url": "https://election-manager-277213.firebaseio.com",
+    "project_id": "election-manager-277213",
+    "storage_bucket": "election-manager-277213.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267787240197:android:909aad005577cd3836ed6c",
+        "android_client_info": {
+          "package_name": "com.manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "267787240197-dsvhanmuolgrampltrpknv25puh903il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLgeUng_a9rsavF63zzJSFK2con4hLi-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "267787240197-dsvhanmuolgrampltrpknv25puh903il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
