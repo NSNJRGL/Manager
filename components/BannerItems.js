@@ -29,7 +29,10 @@ const BannerItems = ({maxHeight, navigation, detailType}) => {
           <View style={styles.person}>
             <Avatar
               size="small"
-              source={require('../assets/images/user-profile.jpg')}
+              source={{
+                uri:
+                  'https://firebasestorage.googleapis.com/v0/b/election-manager-277213.appspot.com/o/assets%2Fuser-profile.jpg?alt=media&token=ee404eb3-6ea0-4f0e-bb79-5e23f22b5894',
+              }}
             />
             <Text style={styles.topMargin} category="label">
               Зарлал гаргасан шадар туслах Б.Бат

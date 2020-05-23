@@ -25,7 +25,10 @@ export const ChatItem = (props) => {
   const renderProfileAvatar = () => (
     <Avatar
       style={styles.avatar}
-      source={require('../assets/images/user-profile.jpg')}
+      source={{
+        uri:
+          'https://firebasestorage.googleapis.com/v0/b/election-manager-277213.appspot.com/o/assets%2Fuser-profile.jpg?alt=media&token=ee404eb3-6ea0-4f0e-bb79-5e23f22b5894',
+      }}
     />
   );
 

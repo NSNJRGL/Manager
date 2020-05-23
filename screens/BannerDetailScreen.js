@@ -19,7 +19,10 @@ const BannerDetailScreen = (props) => {
         </Text>
         <ImageBackground
           style={styles.image}
-          source={require('../assets/images/banner.jpg')}
+          source={{
+            uri:
+              'https://firebasestorage.googleapis.com/v0/b/election-manager-277213.appspot.com/o/assets%2Fbanner.jpg?alt=media&token=e7438852-8d7d-4937-8934-5c594a581ed1',
+          }}
         />
         <Text style={styles.contentLabel}>
           Пропорционал систем нь улс төрийн хүчнүүдийн /намууд/ рейтинг

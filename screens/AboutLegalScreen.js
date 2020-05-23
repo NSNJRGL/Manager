@@ -6,7 +6,10 @@ import Pdf from 'react-native-pdf';
 import CustomTopNavigation from '../components/CustomTopNavigation';
 
 const AboutLegalScreen = ({navigation}) => {
-  const source = require('../assets/pdf/main2.pdf');
+  const source = {
+    uri:
+      'https://firebasestorage.googleapis.com/v0/b/election-manager-277213.appspot.com/o/assets%2Fmain2.pdf?alt=media&token=b5bad360-2b18-4222-8ce9-b359731c52b3',
+  };
 
   return (
     <Layout style={styles.container}>

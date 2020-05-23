@@ -115,7 +115,7 @@ const LoginScreen = (props) => {
           storeData(json.access_token);
           setCurrentUser(json.user_id);
           props.navigation.navigate('App');
-          loginFirebase(json.email, values.password);
+          loginFirebase(json.user_email, values.password);
         } else {
           setLoading(false);
           setMessages(json.message);

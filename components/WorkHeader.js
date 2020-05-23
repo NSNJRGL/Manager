@@ -16,7 +16,10 @@ const WorkHeader = ({navigation}) => {
     <View style={styles.titleContainer}>
       <Avatar
         style={styles.logo}
-        source={require('../assets/images/user-profile.jpg')}
+        source={{
+          uri:
+            'https://firebasestorage.googleapis.com/v0/b/election-manager-277213.appspot.com/o/assets%2Fuser-profile.jpg?alt=media&token=ee404eb3-6ea0-4f0e-bb79-5e23f22b5894',
+        }}
       />
       <Text style={styles.text} category="h5">
         {moment().month() + 1} сар
