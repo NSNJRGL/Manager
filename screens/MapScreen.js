@@ -5,10 +5,12 @@ import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
+// import useTracking from './useTracking';
 
 const MapScreen = () => {
   const [currentLat, setCurrentLat] = useState(0);
   const [currentLong, setcurrentLong] = useState(0);
+  // const {location, history, distance} = useTracking('running');
 
   useEffect(() => {
     Geolocation.getCurrentPosition((info) => {

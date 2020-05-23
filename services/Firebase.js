@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import {YellowBox} from 'react-native';
+import uuid from 'react-native-uuid';
 
 class Firebase {
   constructor() {
@@ -56,14 +57,19 @@ class Firebase {
     try {
       const response = await fetch(uri);
       const blob = await response.blob();
-      const ref = firebase.storage().ref('avatar').child(uri);
+      const ref = firebase.storage().ref('avatar').child(uuid.v1());
       const task = ref.put(blob);
       return new Promise((resolve, reject) => {
         task.on(
           'state_changed',
           () => {},
           reject,
-          () => resolve(task.snapshot.downloadURL),
+          () =>
+            resolve(
+              task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                return downloadURL;
+              }),
+            ),
         );
       });
     } catch (err) {

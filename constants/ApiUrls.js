@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react-native';
 
-export const HOST_URL = 'http://192.168.0.103:5000';
+export const HOST_URL = 'http://192.168.0.101:5000';
 
 const withApiVersion = (url) => HOST_URL + '/api/' + url;
 

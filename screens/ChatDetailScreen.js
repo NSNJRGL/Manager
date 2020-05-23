@@ -1,14 +1,24 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {GiftedChat, Bubble, Send, Actions} from 'react-native-gifted-chat';
-import {Icon, Text} from '@ui-kitten/components';
+import {View, StyleSheet, TouchableOpacity, CameraRoll} from 'react-native';
+import {
+  GiftedChat,
+  Bubble,
+  Send,
+  Actions,
+  MessageImage,
+} from 'react-native-gifted-chat';
+import {Icon, Text, Button} from '@ui-kitten/components';
 import {YellowBox} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import RNFetchBlob from 'rn-fetch-blob';
+import uuid from 'react-native-uuid';
 
 import CustomTopNavigation from '../components/CustomTopNavigation';
 import firebaseSvc from '../services/Firebase';
 import UI from '../constants/UI';
 import LoadingChat from '../components/LoadingChat';
+import ImageLoading from '../components/ImageLoading';
+import EmptyChat from '../components/EmptyChat';
 
 class ChatDetailScreen extends React.Component {
   constructor(props) {
@@ -20,10 +30,13 @@ class ChatDetailScreen extends React.Component {
       fileUrl: null,
       text: '',
       isLoading: true,
+      isImageLoading: false,
     };
 
     this.onHandlePic = this.onHandlePic.bind(this);
     this.renderAction = this.renderAction.bind(this);
+    this.downloadImage = this.downloadImage.bind(this);
+    this.renderMessageImage = this.renderMessageImage.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +50,7 @@ class ChatDetailScreen extends React.Component {
         this.setState((previousState) => ({
           messages: GiftedChat.append(previousState.messages, message),
           isLoading: false,
+          isImageLoading: false,
         })),
       this.state.currentUserId,
       this.state.receiverId,
@@ -72,32 +86,38 @@ class ChatDetailScreen extends React.Component {
   onHandlePic() {
     ImagePicker.openPicker({
       multiple: false,
-    }).then((response) => {
-      this.setState({fileUrl: response.path});
-      if (this.state.text === '') {
-        const message = [
-          {
-            _id: firebaseSvc.uid(),
-            text: '',
-            numberStamp: new Date(),
-            user: {
-              name: firebaseSvc.name(),
-              email: firebaseSvc.email(),
-              avatar: firebaseSvc.avatar(),
-              id: firebaseSvc.uid(),
+    }).then(async (response) => {
+      this.setState({isImageLoading: true});
+      try {
+        let uploadUrl = await firebaseSvc.uploadImage(response.path);
+        this.setState({fileUrl: uploadUrl});
+        if (this.state.text === '') {
+          const message = [
+            {
               _id: firebaseSvc.uid(),
+              text: '',
+              numberStamp: new Date(),
+              user: {
+                name: firebaseSvc.name(),
+                email: firebaseSvc.email(),
+                avatar: firebaseSvc.avatar(),
+                id: firebaseSvc.uid(),
+                _id: firebaseSvc.uid(),
+              },
             },
-          },
-        ];
+          ];
 
-        firebaseSvc.send(
-          message,
-          this.state.fileUrl,
-          this.state.currentUserId,
-          this.state.receiverId,
-        );
+          firebaseSvc.send(
+            message,
+            this.state.fileUrl,
+            this.state.currentUserId,
+            this.state.receiverId,
+          );
 
-        this.setState({fileUrl: ''});
+          this.setState({fileUrl: ''});
+        }
+      } catch (err) {
+        console.log('onImageUpload error:' + err.message);
       }
     });
   }
@@ -124,6 +144,54 @@ class ChatDetailScreen extends React.Component {
     );
   }
 
+  downloadImage(imageSource) {
+    let dirs = RNFetchBlob.fs.dirs;
+    let path = dirs.DownloadDir + '/' + 'zurag0.jpg';
+    RNFetchBlob.config({
+      fileCache: true,
+      indicator: true,
+      path: path,
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        path: path,
+        description: 'Зураг татагдаж байна',
+      },
+    })
+      .fetch('GET', imageSource)
+      .progress((received, total) => {
+        console.log('progress', received / total);
+      })
+      .then((res) => {
+        console.log(res, 'end downloaded');
+      });
+  }
+
+  renderMessageImage(props) {
+    return (
+      <>
+        <Button
+          appearance="ghost"
+          size="small"
+          style={styles.button}
+          accessoryLeft={(props) => (
+            <Icon {...props} fill="#FA434A" name="download-outline" />
+          )}
+          onPress={() => this.downloadImage(props.currentMessage.image)}
+        />
+        <MessageImage
+          {...props}
+          style={styles.image}
+          source={{uri: props.currentMessage.image}}
+        />
+      </>
+    );
+  }
+
+  renderEmptyMessage() {
+    return <EmptyChat />;
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -134,7 +202,10 @@ class ChatDetailScreen extends React.Component {
         />
         <View style={styles.container}>
           <>
-            {this.state.isLoading && <LoadingChat />}
+            {this.state.isLoading && this.state.messages.length > 0 && (
+              <LoadingChat />
+            )}
+            {this.state.isImageLoading && <ImageLoading />}
             <GiftedChat
               messages={this.state.messages}
               isTyping={true}
@@ -163,6 +234,8 @@ class ChatDetailScreen extends React.Component {
               alwaysShowSend={true}
               onInputTextChanged={(text) => this.setState({text})}
               infiniteScroll={true}
+              renderMessageImage={(props) => this.renderMessageImage(props)}
+              renderChatEmpty={this.renderEmptyMessage}
             />
           </>
         </View>
@@ -175,10 +248,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    zIndex: 1001,
   },
   sendButton: {
     marginRight: 20,
     marginBottom: 15,
+  },
+  button: {
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'center',
   },
 });
 

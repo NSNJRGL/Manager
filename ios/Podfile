@@ -68,6 +68,8 @@ target 'Manager' do
 
   pod 'react-native-notifications', :path => '../node_modules/react-native-notifications'
 
+  pod 'rn-fetch-blob', :path => '../node_modules/rn-fetch-blob'
+
   target 'ManagerTests' do
     inherit! :complete
     # Pods for testing
