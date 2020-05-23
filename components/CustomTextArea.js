@@ -15,6 +15,7 @@ export const CustomTextArea = ({label, placeholder, multiline}) => {
 
   return (
     <Input
+      autoCapitalize="none"
       multiline={multiline}
       textStyle={styles.defaultText}
       value={value}

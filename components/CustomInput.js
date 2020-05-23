@@ -18,6 +18,7 @@ export const CustomInput = ({
   return (
     <Input
       value={value}
+      autoCapitalize="none"
       label={renderLabel}
       placeholder={placeholder}
       onChangeText={onChangeText}

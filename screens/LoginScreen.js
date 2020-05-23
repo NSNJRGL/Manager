@@ -163,6 +163,7 @@ const LoginScreen = (props) => {
             <>
               <View style={styles.inputContainer}>
                 <Input
+                  autoCapitalize="none"
                   label={label('УTАСНЫ ДУГААР')}
                   value={values.phone}
                   placeholder="00000000"
@@ -176,6 +177,7 @@ const LoginScreen = (props) => {
                   captionIcon={errors.phone && touched.phone ? AlertIcon : null}
                 />
                 <Input
+                  autoCapitalize="none"
                   label={label('НУУЦ ҮГ')}
                   style={styles.password}
                   value={values.password}
